@@ -1,0 +1,39 @@
+# YAML-Yet Another markup language
+
+- name: "chintu harsha m"
+  dob: "01-01-01"
+  age: 21
+  addresses:
+  - doorNo: 4-32
+    street: "gandhi nagar"
+    city: hyderabad
+    pin: 534565
+    type: current
+  - doorNo: 4-32
+    street: "gandhi nagar"
+    city: hyderabad
+    pin: 534565
+    type: perm
+  skills:
+  - java
+  - devops
+  - cloud
+  
+- name: "ekveer lekha"
+  dob: "01-01-01"
+  age: 21
+  addresses:
+  - doorNo: 4-32
+    street: "gandhi nagar"
+    city: hyderabad
+    pin: 534565
+    type: current
+  - doorNo: 4-32
+    street: "gandhi nagar"
+    city: hyderabad
+    pin: 534565
+    type: perm
+  skills:
+  - java
+  - devops
+  - cloud
