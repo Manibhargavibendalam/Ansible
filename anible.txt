@@ -1,0 +1,299 @@
+This is an Ansible Playbook written in YAML. Don't try to memorize it line by line. First understand the structure. Once you understand the hierarchy, writing playbooks becomes easy.
+
+Here's your playbook:
+
+- name: PLAY-01
+  hosts: frontend
+  tasks:
+  - name: PLAY-01 and TASK-01
+    ansible.builtin.debug:
+      msg: "Hello from PLAY-01 and TASK-01"
+
+  - name: PLAY-01 and TASK-02
+    ansible.builtin.debug:
+      msg: "Hello from PLAY-01 and TASK-02"
+
+- name: PLAY-02
+  hosts: frontend
+  tasks:
+  - name: PLAY-02 and TASK-01
+    ansible.builtin.debug:
+      msg: "Hello from PLAY-02 and TASK-01"
+
+  - name: PLAY-02 and TASK-02
+    ansible.builtin.debug:
+      msg: "Hello from PLAY-02 and TASK-02"
+Think of it like a movie 🎬
+Playbook
+│
+├── Play 1
+│     ├── Task 1
+│     └── Task 2
+│
+└── Play 2
+      ├── Task 1
+      └── Task 2
+
+A Playbook contains one or more Plays.
+
+A Play contains one or more Tasks.
+
+A Task performs one action.
+
+Line-by-line explanation
+Line 1
+- name: PLAY-01
+
+The - means a new item in a list.
+
+Here, it means
+
+Start a new Play.
+
+name is just a label. It helps you identify what is running.
+
+Example:
+
+PLAY-01
+
+When Ansible runs, you'll see
+
+PLAY [PLAY-01]
+Line 2
+hosts: frontend
+
+This tells Ansible
+
+Execute this play on the hosts belonging to the frontend group.
+
+Suppose your inventory is
+
+[frontend]
+172.31.20.10
+172.31.20.11
+
+Then every task inside this play runs on
+
+172.31.20.10
+
+172.31.20.11
+Line 3
+tasks:
+
+Every play contains tasks.
+
+Think of it like
+
+Play
+   ↓
+Tasks
+First task
+- name: PLAY-01 and TASK-01
+
+Again,
+
+-
+
+means
+
+Start another item in the list.
+
+Now the list is tasks.
+
+So this means
+
+Task 1 begins.
+
+Module
+ansible.builtin.debug:
+
+Every task needs a module.
+
+A module is like a command.
+
+Examples
+
+debug
+copy
+yum
+service
+file
+shell
+command
+
+Here you're using
+
+debug
+
+The debug module simply prints a message.
+
+Module argument
+msg: "Hello from PLAY-01 and TASK-01"
+
+The debug module accepts an option called
+
+msg
+
+which means
+
+Display this message.
+
+Output
+
+Hello from PLAY-01 and TASK-01
+Second Task
+- name: PLAY-01 and TASK-02
+
+Another task begins.
+
+Again
+
+debug
+
+prints
+
+Hello from PLAY-01 and TASK-02
+Then another Play starts
+- name: PLAY-02
+
+Notice the -.
+
+This is not another task.
+
+It is another Play because it is aligned with the first play (same indentation).
+
+Play 1
+Play 2
+
+Again
+
+hosts: frontend
+
+Run this play on frontend servers.
+
+Again
+
+tasks:
+
+List of tasks.
+
+Task 1
+
+Hello from PLAY-02 and TASK-01
+
+Task 2
+
+Hello from PLAY-02 and TASK-02
+Overall structure
+Playbook
+│
+├── Play-01
+│      │
+│      ├── hosts
+│      └── tasks
+│             │
+│             ├── Task-01
+│             └── Task-02
+│
+└── Play-02
+       │
+       ├── hosts
+       └── tasks
+              │
+              ├── Task-01
+              └── Task-02
+YAML indentation is very important
+
+Correct:
+
+tasks:
+  - name: Task1
+    ansible.builtin.debug:
+      msg: Hello
+
+Wrong:
+
+tasks:
+- name: Task1
+ansible.builtin.debug:
+msg: Hello
+
+Incorrect indentation causes Ansible to fail with parsing errors.
+
+How Ansible executes this playbook
+
+Suppose your inventory is
+
+[frontend]
+server1
+server2
+
+Execution order:
+
+PLAY-01 starts
+
+↓
+
+Task-01 runs on server1
+
+↓
+
+Task-01 runs on server2
+
+↓
+
+Task-02 runs on server1
+
+↓
+
+Task-02 runs on server2
+
+↓
+
+PLAY-01 finishes
+
+↓
+
+PLAY-02 starts
+
+↓
+
+Task-01 runs on server1
+
+↓
+
+Task-01 runs on server2
+
+↓
+
+Task-02 runs on server1
+
+↓
+
+Task-02 runs on server2
+
+↓
+
+Done
+Real-world analogy
+
+Imagine you're a teacher.
+
+Playbook = The plan for the whole school day.
+Play = One class (e.g., Math, Science).
+Hosts = The students in that class.
+Tasks = Activities (attendance, lecture, homework).
+Module = The action to perform (take attendance, print notes, ask questions).
+
+So your playbook says:
+
+Go to the frontend servers.
+Print "Hello from PLAY-01 and TASK-01".
+Print "Hello from PLAY-01 and TASK-02".
+Start a new play on the same servers.
+Print "Hello from PLAY-02 and TASK-01".
+Print "Hello from PLAY-02 and TASK-02".
+
+Once you understand this hierarchy:
+
+Playbook → Play → Hosts → Tasks → Module → Module arguments
