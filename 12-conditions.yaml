@@ -12,7 +12,7 @@
 - name: conditions
   hosts: local
   connection: local
-  var_prompt:
+  vars_prompt:
   - name: number
     prompt: "Please enter a number"
     private: false
