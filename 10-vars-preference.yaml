@@ -5,10 +5,10 @@
     NAME: from play level
   # vars_files:
   # - course.yaml
-  vars_prompt:
-  - name: NAME
-    prompt: What is your NAME?
-    private: false
+  # vars_prompt:
+  # - name: NAME
+  #   prompt: What is your NAME?
+  #   private: false
   tasks:
   - name: testing variables preference
     # vars:
@@ -20,3 +20,4 @@
   # ansible-playbook -i inventory.ini -e ansible_user=ec2_user -e ansible_password=DevOps321 -e "NAME=From-command-line" 10-vars-preference.yaml
   # 2. from task level
   # 3. from files
+  # 4. from prompt
