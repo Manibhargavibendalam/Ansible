@@ -14,7 +14,7 @@
   connection: local
   var_prompt:
   - name: number
-    prompt:" Please enter a number"
+    prompt: "Please enter a number"
     private: false
   tasks:
   - name: check number is less than 10 or not
